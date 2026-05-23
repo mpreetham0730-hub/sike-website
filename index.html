@@ -717,12 +717,62 @@
       closeCheckout();
 
       // OPEN RAZORPAY
-      window.location.href =
-        "https://razorpay.me/@mpreetham";
+      const options = {
+
+  key: "rzp_test_SsmRZ5yOfUtfsv",
+
+  amount: cart.reduce(
+    (sum, item) => sum + item.price,
+    0
+  ) * 100,
+
+  currency: "INR",
+
+  name: "SIKE",
+
+  description: "Streetwear Purchase",
+
+  image: "./logo.png",
+
+  handler: function (response) {
+
+    alert(
+      "Payment Successful! Payment ID: " +
+      response.razorpay_payment_id
+    );
+
+    cart = [];
+
+    updateCart();
+
+    toggleCart();
+
+  },
+
+  prefill: {
+
+    name: customerName,
+
+    contact: customerPhone
+
+  },
+
+  theme: {
+
+    color: "#ffffff"
+
+  }
+
+};
+
+const rzp = new Razorpay(options);
+
+rzp.open();
 
     }
 
   </script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 </body>
 
